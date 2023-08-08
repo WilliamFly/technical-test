@@ -13,14 +13,7 @@ import Table from "../components/Table/Table"
 import Modal from "../components/Modal/Modal"
 
 // Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyCgB8k6DgjXcutnCQZMhNz-kr9-cJ3-0aw",
-    authDomain: "technical-test-81417.firebaseapp.com",
-    projectId: "technical-test-81417",
-    storageBucket: "technical-test-81417.appspot.com",
-    messagingSenderId: "114602002505",
-    appId: "1:114602002505:web:60c2b87dbf647f1ef11798"
-};
+const firebaseConfig = {/* CONFIGS */};
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
 
