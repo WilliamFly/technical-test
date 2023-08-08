@@ -45,8 +45,8 @@ function App() {
         currentItemsList.push({
           name: doc.data().Name,
           dob: time.toISOString().split('T')[0].toString(),
-          country: doc.data().Country,
-          city: doc.data().City,
+          country: doc.data().Country.value,
+          city: doc.data().City.value,
           edit: <CButton onClick={() => { updateModal(doc.id, doc.data().Name, time, doc.data().Country, doc.data().City); setModalValueType('Edit') }} color="warning">+</CButton>,
           delete: <CButton onClick={() => deleteInfo(doc.id)} color="danger">X</CButton>,
           _cellProps: { id: { scope: 'row' } },
@@ -84,8 +84,8 @@ function App() {
       setValue('year', time.getFullYear().toString())
       setValue('month', (time.getMonth() + 1).toString())
       setValue('day', time.getDate().toString())
-      setValue('country', { value: country, label: country })
-      setValue('city', { value: city, label: city })
+      setValue('country', { value: country.value, label: country.label })
+      setValue('city', { value: city.value, label: city.label })
     }
   }, [visible]);
 
@@ -97,15 +97,15 @@ function App() {
     try {
       if (data.id) {
         await setDoc(doc(db, "Users/", data.id), {
-          City: data.city.value,
-          Country: data.country.value,
+          City: { value: data.city.value, label: data.city.label},
+          Country: {value: data.country.value, label: data.country.label},
           DateOfBirth: new Date(data.year, (data.month - 1), data.day),
           Name: data.name
         });
       } else {
         await addDoc(collection(db, "Users"), {
-          City: data.city.value,
-          Country: data.country.value,
+          City: { value: data.city.value, label: data.city.label},
+          Country: {value: data.country.value, label: data.country.label},
           DateOfBirth: new Date(data.year, (data.month - 1), data.day),
           Name: data.name
         });
@@ -122,6 +122,9 @@ function App() {
   function resetValues() {
     setVisible(false)
     reset()
+    setValue('id', "")
+    setValue('country', "")
+    setValue('city', "")
   }
 
   /** 
